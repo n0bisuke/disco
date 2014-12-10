@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow" />
+<style>
+body {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	top: 0;
+}
+#loading {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #222;
+	background-image: url( "img/loading.gif" );
+	background-position: center;
+	background-repeat: no-repeat;
+}
+</style>
+<script type="text/goml">
+<goml>
+	<head>
+
+		<txr type="canvas" id="floorTxr" param="width: 32; height: 32; repeat: 10; wrap: 0;" draw="misc.drawFloor(a, '#000', '#f2f')" />
+		<txr type="canvas" id="commentTxr1" param="height: 450; width: 800; wrap: 0;" draw="marquee(a, this)" />
+		<txr type="canvas" id="commentTxr2" param="height: 450; width: 800; wrap: 0;" draw="marquee(a, this)" />
+		<txr type="canvas" id="commentTxr3" param="height: 450; width: 800; wrap: 0;" draw="marquee(a, this)" />
+
+		<gmt type="Plane" class="floorMix" param="120 120 30 30" />
+		<gmt type="Plane" class="monitorMix" param="80 45" />
+		<gmt type="Plane" class="monitorMix2" param="80 45" />
+		<gmt type="Plane" class="bezelMix" param="81.5 46.5" />
+
+		<mtr type="MeshPhong" class="floorMix" param="side:2; map: #floorTxr; blending: 2;" />
+		<mtr type="MeshBasic" class="monitorMix" param="color: #000;" />
+		<mtr type="MeshBasic" class="bezelMix" />
+
+		<mtr type="MeshBasic" id="monitorMtr1" param="map: #commentTxr1;" />
+		<mtr type="MeshBasic" id="monitorMtr2" param="map: #commentTxr2;" />
+		<mtr type="MeshBasic" id="monitorMtr3" param="map: #commentTxr3;" />
+
+		<rdr/>
+	</head>
+	<body>
+		<scene>
+			<mesh id="floor" gmt=".floorMix:first" mtr=".floorMix:last" style="rotate:1.57 0 -0.785;" />
+
+			<light type="Amb" />
+			<light type="Dir" id="light-main" style="light-color: #afafaf; position:-14 28 24.5;" />
+
+			<obj class="monitor" style="position: -62.6 25 -25.7; rotateY: 1;">
+				<mesh gmt=".bezelMix:first" mtr=".bezelMix:last" style="positionZ: -.1;"/>
+				<mesh gmt=".monitorMix:first" mtr=".monitorMix:last" />
+				<mesh gmt=".monitorMix2" mtr="#monitorMtr1" style="positionZ: .1;" />
+			</obj>
+			<obj class="monitor" style="position: 0 25 -60;">
+				<mesh gmt=".bezelMix:first" mtr=".bezelMix:last" style="positionZ: -.1;"/>
+				<mesh gmt=".monitorMix:first" mtr=".monitorMix:last" />
+				<mesh gmt=".monitorMix2" mtr="#monitorMtr2" style="positionZ: .1;" />
+			</obj>
+			<obj class="monitor" style="position: 62.6 25 -25.7; rotateY:-1;">
+				<mesh gmt=".bezelMix:first" mtr=".bezelMix:last" style="positionZ: -.1;"/>
+				<mesh gmt=".monitorMix:first" mtr=".monitorMix:last" />
+				<mesh gmt=".monitorMix2" mtr="#monitorMtr3" style="positionZ: .1;" />
+			</obj>
+
+			<camera motion="motion/camera.vmd" style="position: 0 10 30; lookAt:0 10 0;" />
+			
+			<mmd model="model/miku.pmx" motion="motion/miku.vmd" style="positionZ: -5;"/>
+
+			<mmd model="model/back.haku.pmx" motion="motion/haku.vmd" style="position:1.5 0 -5; rotateY: -0.3;" />
+			
+			<mmd model="model/back.neru.pmx" motion="motion/neru.vmd" style="position:-1.5 0 -5; rotateY: 0.3;" />
+			
+			<!--
+			<mmd model="model/akane/akane.pmx" motion="motion/haku.vmd" style="position:1.5 0 -5; rotateY: -0.3;" />
+
+			<mmd model="model/neru.pmx" motion="motion/neru.vmd" style="position:-1.5 0 -5; rotateY: 0.3;" />-->
+			
+		</scene>
+	</body>
+</goml>
+</script>
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="http://cdn.mlkcca.com/v0.2.7/milkcocoa.js"></script>
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="http://oauth.googlecode.com/svn/code/javascript/oauth.js"></script>
+  <script src="http://oauth.googlecode.com/svn/code/javascript/sha1.js"></script>
+  
+
+  <script src="script/jThree.min.js"></script>
+  <script src="script/ammo.js"></script>
+  <script src="script/jThree.MMD.js"></script>
+  <script src="index.js"></script>
+  <script src="./tw.js"></script>
+  <script src="cocoa.js"></script>
+
+</head>
+<body>
+	<div id="loading"></div>
+	<div id="test"></div>
+</body>
+</html>
